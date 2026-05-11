@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momo Date</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:"Comic Sans MS",cursive;
+background:#ffdbe8;
+}
+
+/* dreamy background */
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,255,255,0.5), transparent 35%),
+radial-gradient(circle at 80% 70%, rgba(255,255,255,0.4), transparent 35%),
+linear-gradient(135deg,#ffd6e7,#ffe9c9,#e4d5ff);
+background-size:200% 200%;
+animation:bgmove 14s ease infinite;
+z-index:0;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* floating hearts */
+
+.heart{
+position:absolute;
+bottom:-40px;
+font-size:18px;
+opacity:0.7;
+animation:float linear infinite;
+pointer-events:none;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0) scale(0.8);
+opacity:0.8;
+}
+100%{
+transform:translateY(-110vh) scale(1.4);
+opacity:0;
+}
+}
+
+/* main */
+
+.container{
+position:relative;
+z-index:2;
+text-align:center;
+padding:20px;
+}
+
+/* seal gif */
+
+#seal{
+width:240px;
+max-width:80vw;
+transition:1s;
+}
+
+/* envelope */
+
+.envelope{
+font-size:90px;
+cursor:pointer;
+transition:0.4s;
+display:inline-block;
+margin-top:10px;
+}
+
+.envelope:hover{
+transform:scale(1.08) rotate(-4deg);
+}
+
+/* tap text */
+
+.tap{
+margin-top:6px;
+font-size:24px;
+color:#666;
+transition:1s;
+}
+
+/* love scene */
+
+#loveScene{
+opacity:0;
+pointer-events:none;
+transition:1s;
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+width:100%;
+}
+
+#loveScene.show{
+opacity:1;
+}
+
+#teddy{
+width:260px;
+max-width:80vw;
+}
+
+.loveText{
+font-size:46px;
+color:#ff4f87;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* final text */
+
+#finalText{
+opacity:0;
+transition:1.5s;
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+width:100%;
+}
+
+#finalText.show{
+opacity:1;
+}
+
+.final1{
+font-size:38px;
+color:#444;
+}
+
+.final2{
+margin-top:10px;
+font-size:30px;
+color:#666;
+}
+
+/* fade */
+
+.fadeOut{
+opacity:0 !important;
+transition:1.5s;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="container">
+
+<!-- opening -->
+
+<div id="opening">
+
+<img
+id="seal"
+src="seal.gif"
+>
+
+<div class="envelope" id="letter">
+💌
+</div>
+
+<div class="tap" id="tapText">
+Tap the letter 😳
+</div>
+
+</div>
+
+<!-- love reveal -->
+
+<div id="loveScene">
+
+<img
+id="teddy"
+src="teddy.gif"
+>
+
+<div class="loveText">
+I Love You 💖
+</div>
+
+</div>
+
+<!-- final text -->
+
+<div id="finalText">
+
+<div class="final1">
+Momo Date ? 🥟😌
+</div>
+
+<div class="final2">
+Aj Bikale 👉👈
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* floating hearts */
+
+function makeHeart(){
+
+const h=document.createElement("div")
+
+h.className="heart"
+
+h.innerHTML=["💖","✨","💘"][Math.floor(Math.random()*3)]
+
+h.style.left=Math.random()*100+"vw"
+
+h.style.fontSize=(16+Math.random()*18)+"px"
+
+h.style.animationDuration=(5+Math.random()*5)+"s"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{
+h.remove()
+},10000)
+
+}
+
+setInterval(makeHeart,500)
+
+/* scenes */
+
+const letter=document.getElementById("letter")
+const opening=document.getElementById("opening")
+const loveScene=document.getElementById("loveScene")
+const finalText=document.getElementById("finalText")
+
+letter.addEventListener("click",()=>{
+
+/* opening fades */
+
+opening.classList.add("fadeOut")
+
+/* show teddy + love */
+
+setTimeout(()=>{
+loveScene.classList.add("show")
+},800)
+
+/* fade teddy + love */
+
+setTimeout(()=>{
+loveScene.classList.add("fadeOut")
+},3200)
+
+/* final momo reveal */
+
+setTimeout(()=>{
+finalText.classList.add("show")
+},4700)
+
+})
+
+</script>
+
+</body>
+</html>
